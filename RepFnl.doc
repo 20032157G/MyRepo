@@ -1,0 +1,219 @@
+##Linux en 1 mes
+File:		Cada grupo de datos
+Filesystem:	La regla de estructura y logica usada para tratar los grupos de informacion y sus nombres
+
+#Disco Duro
+Unidad primaria:	Particion booteable, donde esta el SO
+Unidad extendida:	Unidad solo de almacenamiento
+Unidad logica:		Particiones de la particion extendida
+U.prim1
+U.prim2
+U.prim3
+U.extend	--->	Ext1
+			Ext2
+			Ext3
+			Ext4
+mkdir -p <ruta>		#Crea directorio de la ruta y directorios padres si no existen
+rm -r <Directorio>	#Borra directorio y contenido
+fdisk -l|grep '^Disk'		#listar las unidades reconocidas por el SO
+
+#Formatear disco
+1)	Colocar unidad, umount /dev/sd?? o /media/disk
+2)	fdisk -l	#encontrar la unidad sd??
+3)	fdisk /dev/sd??
+4)	d		#delete particion
+5)	n		#Nueva particion	p, 1, enter, enter
+6)	w		#guardar cambios
+7)	mkfs.ntfs /dev/sd?	#formatear -f -q (rapido)
+badblocks -sv /dev/sd* >reporte 	# Encontrar errores
+fsck -t <extension> -l reporte /dev/sd*	# corregir errores en el disco
+apt-get -o Dir=<Ruta> -d install <paquete>	#Descargar deb
+apt-get install ntfsprogs	#instalar NTFS utilidades
+apt-cache search python|egrep "^python2[0-9]" --color
+dpkg -c <Archivo.deb> #Contenido de un *.deb
+dpkg -s <*.deb> #Mostrar paquetes Instalados
+dpkg -x <Ruta *.deb> <Ruta2> #Extraer *.deb
+dpkg-dev -x <Ruta1> <Ruta2> 
+
+#Instalacion
+/etc/apt/sources.list	#Repositorios
+/var/cache/apt/lists/archives/	#Ubicacion de los paquetes debs
+/var/lib/ #Ubicacion de las listas de actualizaciones
+
+#Directorio existe o archivo
+if [ ! -d <rutaDirectorio> ]	#Directorio existe? Sin '-d' Archivo existe
+then
+	<comandos>
+fi
+dirname <ruta completa>		#Extraer dirRuta de ArchRuta
+
+#Extraer tar.gz
+tar -zxvf <RutaArchivo> -c <RutaDirectorio>
+tar -zxvf <RutaArchivo> -c <RutaDirectorio> --stip-compoments n	#Sin directorio n-1 nivel de carpeta
+#Comprimir
+tar -cvzf <ArchivoRutaNueva.tar.gz> <Dir1> <Archivo1> -k	#comprimir en RutaNueva sin sobreescribir
+tar -tvf <Archivo.tar.gz>	#Listar contenido de un archivo tar.gz
+
+#Propiedades de echo
+echo -e "\033[0;31<text>.../033[0m
+Black		0;30	Purple		0;35	LightGreen	1;32
+Red		0;31	Cyan		0;36	LightYellow	1;33 #=60+33
+Green		0;32	LightGreen	0;37	LightBlue	1;34
+Yellow		0;33	Dark gray	1;30	LightPurple	1;35
+Blue		0;34	Light red	1;31	LightCyan	1;36
+						White		1;37
+[38;5;color	[48;5;color #color en [1-256]
+Ejemplos:	\e[103;34m \e[{v1,}{v2}m
+Forecolor+10=Background
+Text subrayado:		echo -e "\e[4m<texto>	\e[24m"
+Titila:				"\e[5m		\e[25m"	
+RecuadroColInv:			"\e[7m		\e[27m"
+Oculto:				"\e[8m		\e[28m"
+Debil:				"\e[2m		\e[22m"
+<=$(echo $var) #Almacenar la salida de ejecucion de comandos
+#Teclas
+'!'	exclamation	']'	bracket right
+'#'	number sign	'}'	bracket left
+'$'	dollar		';'	semicolon
+'%'	percent		'"'	doublequotes
+'^'	caret		'`'	backquote
+'&'	ampersand	'~'	tilde
+'*'	asterisk	'\'	backslash
+'('	left parent	'|'	bar
+')'	right parent	','	comma
+'-'	minus		'<'	less
+'_'	underscore	'>'	greater
+'='	equal		'.'	period
+'+'	plus		'?'	question
+'['	bracket left	'/'	slash
+'{'	brace left	'@'	at
+
+#Archivos
+ls -l <Ruta>|egrep -c '^-' #contar
+path=`find <Ruta a buscar> -name <Nombre del archivo> -print -quit`	#Buscar archivo por nombre, salida ruta completa
+ls <Ruta> |wc -l #Contar archivos
+sed 's/<texto>/<str>/g' <RutaArchivo> > <Nuevo archivo> #Reemplazar ocurrencia guardado en nuevo archivo
+grep -rnw '<Ruta>' -e "<Ocurrencia>" #Listar archivos con 1 ocurrencia
+grep --include=\*.{ext1,ext2,...} -rnw ... #Solo con extensiones 
+grep --exclude=*.ext3 -rnw '<Ruta>' "Ocurrencia" #Excluyee ext3
+grep --exclude-dir={dir1,dir2,*.ext4} -rnw ... #Excluye dirs y ext4
+sed 's/<texto>/<str>/g' <Ruta> > <NuevoArchivo> #Reemplazar ocurrencias de texto por str en el archivo para guardarla en un nuevo archivo
+sed -i "s%<url1>%<url2>%g" "<Archivo>"	#Reemplazar en el archivo
+sed -i 's|<textoraro>|<textraro2>|g' "<Archivo>" 
+find <Ruta> -name "<nombre.ext>" |xargs grep -i "TextoOcurrencia" # Texto en archivos dentro de una ruta
+find <Archivo> -type f -name "<Archivo>" -print|xargs sed -i "s%<texto1>%<texto2>%g" 
+
+#Texto
+cat <txt> |sed 's/^[^<delim>]*<delim>/<cambio>/' #Mostrar texto despues de delimitador
+echo < >|awk -F'<delim>' '{print NF}' #Numero de ocurrencias
+echo < >|awk -F'<delim>' '{print $1}' #Imprime campos separados por delimitador
+echo $x|sed 's/<texto>/<ArgReemplazar>/g' #Reemplazar ocurrencias en texto por ArgReemplazar
+...|sed 's/.$//' #Borrar ultimo caracter
+sed -e "s%<url>%<url2>%g" "<TextoArchivo>" #Imprime cambio en pantalla
+sed -e 's|<texto>|<texto2>|g' "<TextoArchivo>"
+...|awk -F'<delim>' '{print $NF}' #Retorna texto despues del <delim>
+sed -e 's/.*<delim1>\(.*\)<delim2>.*/\1/' #Remover text antes y despues de delimitadores
+sed -e 's/\($d\)[^<]*\($d2\)/\1\2/g' #Borrar texto entre delimitadores
+sed -e 's/\($d1\)[^<]*\($d2\)//g' #Borrar texto entre delimitadores, sin delimitadores
+sed '/<delim>/!d;s//&\n/;s/.*\n//;:a;/<delim2>/bb;$!{n;ba};:b;s//\n&/;P;D'
+<lineas>|xargs #Convierte lineas en una sola 
+...|sed 's/[a-z]//g' #Borrar letras
+|sed '$d' #Borrer ultima linea
+|sed ':a;$!N;1,4ba;P;$d;D' #Borrar ultimas 4 lineas
+sed 1d #Borrar 1ra linea
+sed '1d;3d' #Borrar 1ra y 3ra linea
+sed -i '1d;$d' #Borrar 1ra y ultima
+<lineas>|grep -i "<Ocurrencia>" #Solo lineas contienen ocurrencia
+...|uniq -c #Mostrar lineas y veces q aparece
+...|uniq -cd #Mostrar solo lineas duplicadas
+...|egrep "^<Ocurrencia>" #Listar lineas inician con ocurrencia
+...|egrep "<pattern>"
+...|grep -oP '<Ocurrencia>\k.*' #Extraer de texto a partir de Ocurrencia
+...|awk -F'l
+F"<Ocurrencia>" '{print $NF}'
+...|sed 's/^.*<Ocurrencia>//' 
+...|sed 's/<ocurrencia>.*//'
+...|sed 's/^[^<ocurrencia>]*<ocurrencia>//'
+<>|awk -F, 'print NR' #Imprime solo numero de linea
+<>|awk -F, 'END{print NR}' #Imprime ultima numero de linea
+<>|sed '<n>!d' #Imprime n-esima linea
+<>|awk 'NR==<n>'
+<>|sed '<n>q;d'
+<>|sed -n <n>p
+...|awk '{print $<numBloq>}' #Mostrar bloq entre espacios
+<>|sed -n <n1>,<n2>p #Imprimir rango de lineas
+<>|grep -ne ^ 3
+printf '%s\n%s\n' "<texto1>" "<texto2>"
+printf '%s\t%s\n' "<str1>" "<str2>"
+
+#Lineas
+<>|sed -n '/<ocurrencia>/=' #Ubicar str en numero lineas
+...|sed -nr 's/.*<delim1>(.*)<delim2>.*/\1/p' #Texto entre delimitadores
+...!sed -n '/<delim1>/,/<delim2>/p' 
+ 
+sed '/^\s*$/d' #Borrar lineas vacias
+sed 's/^ *//' #Trim izq
+sed 's/^ *$//' #Trim derecho
+sed '/^$/d' #Remover lineas vacias
+sed '/^\s*$/d' #Borrar lineas puedan contener espacios vacios
+sed '1s/^/<1eraLinea>\n/' #Agregar 1era linea
+sed '/i<texto\\'
+sed -e '1 i\<txt>'
+sed -n '/<d1>/{:a;N;/^\n/s/^\n//;//<d2>/{P;s/.*//;};ba};' #Extraer lineas entre delimitadores
+paste <( echo "$var1") <(echo "$var2") -d '<1delim>' #Une columnas en dos columnas separadas por un delimitador como ','
+...|rev #Invertir las cadenas de caracteres de las lineas
+
+#AWK
+FS	:	Field Separator
+OFS	:	Output Field Separator
+RS	:	Record Separator
+ORS	:	Output Record Separator
+NR	:	Number of Recordss
+NF	:	Nummber of Fields
+FNR	:	File Number of Records
+
+awk -F'FS' '{print $i"\t"$j}' #Imprime campo 1 y 2 dividido por delim
+awk -F'OFS' '{print $i,$j;}' #Imprime los campos con delim OFS
+awk -F RS="\n\n" FS="\n" '{print $1 $2}'
+awk 'BEGIN{ORS="=";} {print ;}'
+awk 'print NR'
+awk '{print NR, "-",NF}'
+awk '{print FILENAME}'
+awk '{print FILENAME, FNR}'
+awk -v v=<numero o variable entera +> 'BEGIN{FS="<separador>";RS="<separador2>";OFS="<separador3>";ORS="<separador4>"} {print $v}' #Definidos FS,RS,OFS,ORS donde OFS y ORS tienen valores defecto, imprime el campo denotado por la variable v de todos los registros
+
+#For
+for ((i=0;i<=<numero entero +>;i++));do
+	<sentencia>
+done
+
+
+#If
+if [ "<str1>"=="<str2>" ]; then
+	<Sentencias>
+elif [ <> ]; then
+	<Sentencias>
+else
+	<Sentencia>
+fi
+if [ <numero1> -eq <numero2> ];then #-eq:equal,-gt:greater than, -lt
+	<sentencia>
+fi
+
+#While
+while <condicion>;do
+	<sentencia>
+done
+ejm:
+while read line; do
+	echo "$line" |grep -oP '<ocurrencia>\k.*'>$(echo "$line |awk '{print $<numero>}');
+done < file
+
+echo $((x+y+z)) #mostrar evaluacion
+#Incremento
+((++k))
+k++
+k+=1
+let "k+=1"
+declare -i i;i+=1
+
