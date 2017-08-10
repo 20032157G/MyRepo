@@ -38,7 +38,7 @@ dpkg-dev -x <Ruta1> <Ruta2>
 #Instalacion
 /etc/apt/sources.list	#Repositorios
 /var/cache/apt/lists/archives/	#Ubicacion de los paquetes debs
-/var/lib/ #Ubicacion de las listas de actualizaciones
+/var/lib/apt/ #Ubicacion de las listas de actualizaciones
 
 #Directorio existe o archivo
 if [ ! -d <rutaDirectorio> ]	#Directorio existe? Sin '-d' Archivo existe
@@ -49,7 +49,7 @@ dirname <ruta completa>		#Extraer dirRuta de ArchRuta
 
 #Extraer tar.gz
 tar -zxvf <RutaArchivo> -c <RutaDirectorio>
-tar -zxvf <RutaArchivo> -c <RutaDirectorio> --stip-compoments n	#Sin directorio n-1 nivel de carpeta
+tar -zxvf <RutaArchivo> -c <RutaDirectorio> --strip-compoments n	#Sin directorio n-1 nivel de carpeta
 #Comprimir
 tar -cvzf <ArchivoRutaNueva.tar.gz> <Dir1> <Archivo1> -k	#comprimir en RutaNueva sin sobreescribir
 tar -tvf <Archivo.tar.gz>	#Listar contenido de un archivo tar.gz
@@ -70,7 +70,7 @@ Titila:				"\e[5m		\e[25m"
 RecuadroColInv:			"\e[7m		\e[27m"
 Oculto:				"\e[8m		\e[28m"
 Debil:				"\e[2m		\e[22m"
-<=$(echo $var) #Almacenar la salida de ejecucion de comandos
+... < $(echo $var) #Almacenar la salida de ejecucion de comandos
 #Teclas
 '!'	exclamation	']'	bracket right
 '#'	number sign	'}'	bracket left
@@ -109,28 +109,27 @@ echo < >|awk -F'<delim>' '{print NF}' #Numero de ocurrencias
 echo < >|awk -F'<delim>' '{print $1}' #Imprime campos separados por delimitador
 echo $x|sed 's/<texto>/<ArgReemplazar>/g' #Reemplazar ocurrencias en texto por ArgReemplazar
 ...|sed 's/.$//' #Borrar ultimo caracter
-sed -e "s%<url>%<url2>%g" "<TextoArchivo>" #Imprime cambio en pantalla
-sed -e 's|<texto>|<texto2>|g' "<TextoArchivo>"
+echo <texto>|sed -e "s%<url>%<url2>%g" "<TextoArchivo>" #Imprime cambio en pantallaecho <txt>
+echo <texto>|sed -e 's|<texto>|<texto2>|g' "<TextoArchivo>"
 ...|awk -F'<delim>' '{print $NF}' #Retorna texto despues del <delim>
-sed -e 's/.*<delim1>\(.*\)<delim2>.*/\1/' #Remover text antes y despues de delimitadores
-sed -e 's/\($d\)[^<]*\($d2\)/\1\2/g' #Borrar texto entre delimitadores
-sed -e 's/\($d1\)[^<]*\($d2\)//g' #Borrar texto entre delimitadores, sin delimitadores
+...|sed -e 's/.*<delim1>\(.*\)<delim2>.*/\1/' #Remover text antes y despues de delimitadores
+...|sed -e 's/\($d\)[^<]*\($d2\)/\1\2/g' #Borrar texto entre delimitadores
+...|sed -e 's/\($d1\)[^<]*\($d2\)//g' #Borrar texto entre delimitadores, sin delimitadores
 sed '/<delim>/!d;s//&\n/;s/.*\n//;:a;/<delim2>/bb;$!{n;ba};:b;s//\n&/;P;D'
 <lineas>|xargs #Convierte lineas en una sola 
 ...|sed 's/[a-z]//g' #Borrar letras
-|sed '$d' #Borrer ultima linea
-|sed ':a;$!N;1,4ba;P;$d;D' #Borrar ultimas 4 lineas
-sed 1d #Borrar 1ra linea
-sed '1d;3d' #Borrar 1ra y 3ra linea
-sed -i '1d;$d' #Borrar 1ra y ultima
+...|sed '$d' #Borrer ultima linea
+...|sed ':a;$!N;1,4ba;P;$d;D' #Borrar ultimas 4 lineas
+...|sed 1d #Borrar 1ra linea
+...|sed '1d;3d' #Borrar 1ra y 3ra linea
+...|sed -i '1d;$d' #Borrar 1ra y ultima
 <lineas>|grep -i "<Ocurrencia>" #Solo lineas contienen ocurrencia
 ...|uniq -c #Mostrar lineas y veces q aparece
 ...|uniq -cd #Mostrar solo lineas duplicadas
 ...|egrep "^<Ocurrencia>" #Listar lineas inician con ocurrencia
 ...|egrep "<pattern>"
 ...|grep -oP '<Ocurrencia>\k.*' #Extraer de texto a partir de Ocurrencia
-...|awk -F'l
-F"<Ocurrencia>" '{print $NF}'
+...|awk -F"<Ocurrencia>" '{print $NF}'
 ...|sed 's/^.*<Ocurrencia>//' 
 ...|sed 's/<ocurrencia>.*//'
 ...|sed 's/^[^<ocurrencia>]*<ocurrencia>//'
@@ -157,10 +156,10 @@ sed 's/^ *$//' #Trim derecho
 sed '/^$/d' #Remover lineas vacias
 sed '/^\s*$/d' #Borrar lineas puedan contener espacios vacios
 sed '1s/^/<1eraLinea>\n/' #Agregar 1era linea
-sed '/i<texto\\'
+sed '/i<texto>\\'
 sed -e '1 i\<txt>'
 sed -n '/<d1>/{:a;N;/^\n/s/^\n//;//<d2>/{P;s/.*//;};ba};' #Extraer lineas entre delimitadores
-paste <( echo "$var1") <(echo "$var2") -d '<1delim>' #Une columnas en dos columnas separadas por un delimitador como ','
+paste <( echo "$var1") <(echo "$var2") -d '<delim>' #Une columnas en dos columnas separadas por un delimitador como ','
 ...|rev #Invertir las cadenas de caracteres de las lineas
 
 #AWK
