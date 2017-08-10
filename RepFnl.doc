@@ -147,7 +147,7 @@ printf '%s\t%s\n' "<str1>" "<str2>"
 
 #Lineas
 <>|sed -n '/<ocurrencia>/=' #Ubicar str en numero lineas
-...|sed -nr 's/.*<delim1>(.*)<delim2>.*/\1/p' #Texto entre delimitadores
+...|sed -nr 's/.*<delim1>(.*)<delim2>.*/\1/p' #Lineas entre delimitadores
 ...!sed -n '/<delim1>/,/<delim2>/p' 
  
 sed '/^\s*$/d' #Borrar lineas vacias
@@ -209,6 +209,7 @@ while read line; do
 done < file
 
 echo $((x+y+z)) #mostrar evaluacion
+shuf -i <min>-<max> -n <N> # Obtener N numeros(<=max) aleatorios entre min y max
 #Incremento
 ((++k))
 k++
