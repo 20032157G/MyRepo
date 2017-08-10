@@ -73,7 +73,7 @@ Debil:				"\e[2m		\e[22m"
 ... < $(echo $var) #Almacenar la salida de ejecucion de comandos
 #Teclas
 '!'	exclamation	']'	bracket right
-'#'	number sign	'}'	bracket left
+'#'	number sign	'}'	brace left
 '$'	dollar		';'	semicolon
 '%'	percent		'"'	doublequotes
 '^'	caret		'`'	backquote
@@ -109,7 +109,7 @@ echo < >|awk -F'<delim>' '{print NF}' #Numero de ocurrencias
 echo < >|awk -F'<delim>' '{print $1}' #Imprime campos separados por delimitador
 echo $x|sed 's/<texto>/<ArgReemplazar>/g' #Reemplazar ocurrencias en texto por ArgReemplazar
 ...|sed 's/.$//' #Borrar ultimo caracter
-echo <texto>|sed -e "s%<url>%<url2>%g" "<TextoArchivo>" #Imprime cambio en pantallaecho <txt>
+echo <texto>|sed -e "s%<url>%<url2>%g" "<TextoArchivo>" #Imprime cambio en pantalla
 echo <texto>|sed -e 's|<texto>|<texto2>|g' "<TextoArchivo>"
 ...|awk -F'<delim>' '{print $NF}' #Retorna texto despues del <delim>
 ...|sed -e 's/.*<delim1>\(.*\)<delim2>.*/\1/' #Remover text antes y despues de delimitadores
@@ -118,7 +118,7 @@ echo <texto>|sed -e 's|<texto>|<texto2>|g' "<TextoArchivo>"
 sed '/<delim>/!d;s//&\n/;s/.*\n//;:a;/<delim2>/bb;$!{n;ba};:b;s//\n&/;P;D'
 <lineas>|xargs #Convierte lineas en una sola 
 ...|sed 's/[a-z]//g' #Borrar letras
-...|sed '$d' #Borrer ultima linea
+...|sed '$d' #Borrar ultima linea
 ...|sed ':a;$!N;1,4ba;P;$d;D' #Borrar ultimas 4 lineas
 ...|sed 1d #Borrar 1ra linea
 ...|sed '1d;3d' #Borrar 1ra y 3ra linea
@@ -157,8 +157,8 @@ sed '/^$/d' #Remover lineas vacias
 sed '/^\s*$/d' #Borrar lineas puedan contener espacios vacios
 sed '1s/^/<1eraLinea>\n/' #Agregar 1era linea
 sed '/i<texto>\\'
-sed -e '1 i\<txt>'
-sed -n '/<d1>/{:a;N;/^\n/s/^\n//;//<d2>/{P;s/.*//;};ba};' #Extraer lineas entre delimitadores
+sed -e '1 i\<texto>'
+sed -n '/<d1>/{:a;N;/^\n/s/^\n//;//<d2>/{P;s/.*//;};ba};' #Extraer lineas entre delimitadores d1 y d2
 paste <( echo "$var1") <(echo "$var2") -d '<delim>' #Une columnas en dos columnas separadas por un delimitador como ','
 ...|rev #Invertir las cadenas de caracteres de las lineas
 
