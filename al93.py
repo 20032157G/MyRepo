@@ -37,10 +37,10 @@ class bnlddr():
 				d/=2
 				#d=int(Y[i])//pow(2,c)
 			z=z*pow(pow(self.x,d),pow(2,c))
-			print(len(Y),i,c,d,z)
+			#print(len(Y),i,c,d,z)
 			if (i<len(Y)-1):
 				z=pow(z,pow(2,self.b))
-			print(z)
-			print ("###########")
+			#print(z)
+			#print ("###########")
 		return z
 	
