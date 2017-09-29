@@ -1,0 +1,44 @@
+\documentclass[12pt]{report}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{lipsum}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage[a4paper,head=4cm, top=1.5cm, bottom=2.5cm,left=1cm, right=1cm,includehead]{geometry}
+%\fancyhf{}
+\lhead{
+\begin{picture}(0,0)\put(0,0){
+\includegraphics[height=2cm]{logo.pdf}}			
+\end{picture}
+\parbox[b][2cm][c]{8.0cm}{\raggedleft Universidad Nacional de Ingenier\'ia\\
+Facultad de Ciencias\\
+Escuela	 Profesional de Matem\'atica}\\
+$\left[ \text{Curso CM}-413: \text{Analisis Funcional I} \right]$\\
+$\left[\text{Prof: J. Ugarte, C. Torres}\right]$
+}				
+\rhead{\parbox[b][2cm][c]{3cm}{\raggedleft\textbf{Ciclo 2017-2.}}\\\parbox[b][0.5cm][c]{3cm}{\raggedleft26 de setiembre.}}
+
+\pagestyle{fancy}
+\begin{document}
+%\lipsum[1]
+\begin{center}
+\textbf{Segunda Pr\'actica Calificada}\\
+\end{center}
+\begin{enumerate}
+\item Sean $X=\mathbb{R}^3$ e $Y=\left\lbrace a\vec{e_1} : \vec{e_1}=(1,0,0,) \text{ y } a\in\mathbb{R}\right\rbrace.$ Encontrar 
+\begin{enumerate}
+\item $X/Y$, $X/X$ y $X/\{\vec{0}\}.$\parbox[b][0cm][c]{13.5cm}{\raggedleft (2.5 pts.)}\\ 
+\item Una base para cada uno de los espacios cocientes indicados en a.\parbox[b][0cm][c]{5.5cm}{\raggedleft(2.5 pts.)}\\
+\end{enumerate}
+\item Sea $(X,\|\:\cdotp\|)$ un espacio normado y $M$ un subespacio cerrado de $X$. En el espacio cociente $X/M$ definimos $$|||\hat{x}|||=\inf_{y\in M}\|x+y\|,\; \forall\hat{x}\in X/M.$$
+\begin{enumerate}
+\item Probar que $|||\:\cdotp|||$ define una norma en $X/M$.\parbox[b][0cm][c]{9.0cm}{\raggedleft{} (1 pts.)}
+\item Si $X$ es de Banach, probar que $(X/M,|||\:\cdotp|||)$ es de Banach. 			\parbox[b][0cm][c]{6.5cm}{\raggedleft(2 pts.)}
+\item Si $M$ y $X/M$ son de Banach, probar que $X$ es de Banach. \parbox[b][0cm][c]{6.5cm}{\raggedleft(2 pts.)}
+\item Si $X$ es separable, probar que $X/M$ es separable. \parbox[b][0cm][c]{8cm}{\raggedleft(2 pts.)}
+\end{enumerate}
+\item Enuncie el Teorema de Complexi\'on para espacios normados. Describa brevemente en que consiste la prueba de dicho teorema. \parbox[b][0cm][c]{13cm}{\raggedleft(4 ptos.)}
+\item Sea $f\neq 0$ una funcional lineal sobre el espacio vectorial $X$ y $x_0$ un elemento fijo de $X\setminus Ker(f)$, donde $Ker(f)$ es el n\'ucleo de $f$. Mostrar que cualquier $x\in X$ tiene una \'unica representaci\'on $x=\alpha x_0+y$, donde $y\in ker(f).$\parbox[b][0cm][c]{14.5cm}{\raggedleft(4 pts.)}
+\end{enumerate}
+El ex\'amen ser\'a devuelto el viernes $29$ de Septiembre a las $10$ de la ma\~nana en sala de profesores. Asimismo, se entregar\'a ese d\'ia la PD3 que ser\'a evaluada el s\'abado $6$ de octubre a las $8$ de la ma\~nana.
+\end{document}
