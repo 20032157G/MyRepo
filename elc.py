@@ -3,7 +3,7 @@
 ## COORDENADAS ELIPTICAS AFINES
 
 def neg(P):
-    return (x,-y,z)
+    return [P[0],-P[1],P[2]]
 
 def doub(P):
     return add(P,P)
@@ -31,7 +31,7 @@ def neg(P):
 	return (P[0],-P[1],P[2])
 
 def double:
-	if(P[1]==0||P[2]==0)
+	if(P[1]==0|P[2]==0)
         	return [0,1,0]
 	M=(3*pow(P[0],3)+a*pow(P[2],4))
 	S=4*P[0]*pow(P[1],2)
